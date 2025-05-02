@@ -2,26 +2,26 @@ import torch
 import cv2
 import os
 
-# Load YOLOv5 model (from PyTorch Hub)
+# Load YOLOv5 model
 model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
 
 # Set model to evaluation mode
 model.eval()
 
 def detect_and_annotate(image_path, output_path):
-    # Load image
+    # we load the image
     img = cv2.imread(image_path)
     if img is None:
         print("Failed to load image.")
         return
 
-    # Convert image from BGR (OpenCV format) to RGB
+    # Convert image from BGR  to RGB
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-    # Perform detection
+    #  detection perform here
     results = model(img_rgb)
 
-    # Parse results
+ 
     detections = results.xyxy[0]  # [x1, y1, x2, y2, confidence, class]
 
     if len(detections) == 0:
